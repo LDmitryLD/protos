@@ -26,6 +26,7 @@ type GeorerClient interface {
 	GeoCode(ctx context.Context, in *GeoCodeRequest, opts ...grpc.CallOption) (*GeoCodeResponse, error)
 }
 
+
 type georerClient struct {
 	cc grpc.ClientConnInterface
 }
