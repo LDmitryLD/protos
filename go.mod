@@ -1,4 +1,4 @@
-module protos
+module projects/LDmitryLD/hugoproxy-microservices/protos
 
 go 1.19
 
