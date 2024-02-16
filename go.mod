@@ -1,4 +1,4 @@
-module LDmitryLD/protos
+module github.com/LDmitryLD/protos
 
 go 1.19
 
