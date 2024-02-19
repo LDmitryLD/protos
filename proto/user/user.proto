@@ -17,6 +17,7 @@ message ProfileRequest {
 message ProfileResponse {
     string name = 1;
     string email = 2;
+    string passwrd =3;
 }
 
 message ListRequest {}
