@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package usergrpc;
+
+option go_package = "/usergrpc";
+
+service Userer {
+    rpc Profile(ProfileRequest) returns (ProfileResponse);
+    rpc List(ListRequest) returns (ListResponse);
+}
+
+message ProfileRequest {
+    string email = 1;
+}
+
+message ProfileResponse {
+    string name = 1;
+    string email = 2;
+}
+
+message ListRequest {}
+
+message ListResponse {
+    repeated User users = 1;
+}
+
+message User {
+    string name = 1;
+    string email = 2;
+}
