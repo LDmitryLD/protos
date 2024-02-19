@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type UsererClient interface {
 	Profile(ctx context.Context, in *ProfileRequest, opts ...grpc.CallOption) (*ProfileResponse, error)
 	List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
+	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
 }
 
 type usererClient struct {
@@ -52,12 +53,22 @@ func (c *usererClient) List(ctx context.Context, in *ListRequest, opts ...grpc.C
 	return out, nil
 }
 
+func (c *usererClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
+	out := new(CreateResponse)
+	err := c.cc.Invoke(ctx, "/usergrpc.Userer/Create", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsererServer is the server API for Userer service.
 // All implementations must embed UnimplementedUsererServer
 // for forward compatibility
 type UsererServer interface {
 	Profile(context.Context, *ProfileRequest) (*ProfileResponse, error)
 	List(context.Context, *ListRequest) (*ListResponse, error)
+	Create(context.Context, *CreateRequest) (*CreateResponse, error)
 	mustEmbedUnimplementedUsererServer()
 }
 
@@ -70,6 +81,9 @@ func (UnimplementedUsererServer) Profile(context.Context, *ProfileRequest) (*Pro
 }
 func (UnimplementedUsererServer) List(context.Context, *ListRequest) (*ListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
+}
+func (UnimplementedUsererServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedUsererServer) mustEmbedUnimplementedUsererServer() {}
 
@@ -120,6 +134,24 @@ func _Userer_List_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Userer_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsererServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/usergrpc.Userer/Create",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsererServer).Create(ctx, req.(*CreateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Userer_ServiceDesc is the grpc.ServiceDesc for Userer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -134,6 +166,10 @@ var Userer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "List",
 			Handler:    _Userer_List_Handler,
+		},
+		{
+			MethodName: "Create",
+			Handler:    _Userer_Create_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

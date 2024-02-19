@@ -7,6 +7,7 @@ option go_package = "/usergrpc";
 service Userer {
     rpc Profile(ProfileRequest) returns (ProfileResponse);
     rpc List(ListRequest) returns (ListResponse);
+    rpc Create(CreateRequest) returns (CreateResponse);
 }
 
 message ProfileRequest {
@@ -27,4 +28,14 @@ message ListResponse {
 message User {
     string name = 1;
     string email = 2;
+}
+
+message CreateRequest {
+    string name = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message CreateResponse {
+    bool success = 1;
 }
