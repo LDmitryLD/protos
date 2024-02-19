@@ -16,7 +16,7 @@ message RegisterRequest {
 }
 
 message RegisterResponse {
-    bool success = 1;
+    uint32 status = 1;
     string message = 2;
 }
 
