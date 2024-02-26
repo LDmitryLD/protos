@@ -17,7 +17,8 @@ message ProfileRequest {
 message ProfileResponse {
     string name = 1;
     string email = 2;
-    string passwrd =3;
+    string passwrd = 3;
+    string phone = 4;
 }
 
 message ListRequest {}
@@ -29,12 +30,14 @@ message ListResponse {
 message User {
     string name = 1;
     string email = 2;
+    string phone = 3;
 }
 
 message CreateRequest {
     string name = 1;
     string email = 2;
     string password = 3;
+    string phone = 4;
 }
 
 message CreateResponse {
