@@ -8,6 +8,7 @@ service Userer {
     rpc Profile(ProfileRequest) returns (ProfileResponse);
     rpc List(ListRequest) returns (ListResponse);
     rpc Create(CreateRequest) returns (CreateResponse);
+    rpc GetByID(GetByIDRequest) returns (GetByIDResponse);
 }
 
 message ProfileRequest {
@@ -43,4 +44,13 @@ message CreateRequest {
 
 message CreateResponse {
     bool success = 1;
+}
+
+message GetByIDRequest {
+    uint32 id = 1;
+}
+
+message GetByIDResponse {
+    string email = 1;
+    string phone = 2;
 }
